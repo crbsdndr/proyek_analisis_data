@@ -9,7 +9,7 @@
 
 ## Install Packages
 ```
-    pip install pandas matplotlib streamlit
+    pip install -r requirements.txt
 ```
 
 ## Run the dashboard

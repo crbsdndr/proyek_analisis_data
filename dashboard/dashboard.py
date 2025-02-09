@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 
 # Load the dataset
-assemble = pd.read_csv("assemble.csv")
+assemble = pd.read_csv("./dashboard/assemble.csv")
 
 if 'time' in assemble.columns:
     assemble['time'] = pd.to_datetime(assemble['time'])

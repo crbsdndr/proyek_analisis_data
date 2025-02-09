@@ -14,5 +14,5 @@
 
 ## Run the dashboard
 ```
-    streamlit run ./dashboard.py
+    streamlit run ./dashboard/dashboard.py
 ```

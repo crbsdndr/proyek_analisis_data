@@ -84,7 +84,7 @@ with tab1:
 
     if not filtered_data.empty:
         # Hitung rata-rata AQI berdasarkan kombinasi tahun-bulan pada kolom 'time'
-        monthly_avg = filtered_data.groupby(filtered_data['time'].dt.to_period('M')).mean(numeric_only=True)
+        monthly_avg = filtered_data.groupby(filtered_data['time'].dt.to_period('M')).median(numeric_only=True)
 
         # Reset index agar lebih mudah diakses
         monthly_avg.reset_index(inplace=True)
@@ -109,14 +109,14 @@ with tab1:
         st.write(
             "Visualisasi ini menunjukan downtrend di kedua lokasi terjadi lower high dan lower low, "
             "menunjukan terdapat langkah yang baik bagi masyarakat disekatar stasiun tersebut "
-            "meskipun bisa dibilang nilai all time low 2015 masih terbilang nilai AQI yang sedang, "
+            "meskipun bisa dibilang nilai all time low 2014 masih terbilang nilai AQI yang sedang, "
             "gak baik baik banget dan gak buruk buruk banget. All time high menunjukkan angka "
-            "disekitar 180 pada tahun 2014 ini cukup tinggi. Saat saya serching buruknya nilai AQI "
-            "di tahun 2014 dan baiknya AQI pada tahun 2015 di beijing ini cukup masuk akal karena info "
-            "yang saya dapat benar bahwa 2014 cukup parah nilai AQI nya dan 2015 nya juga tercatat "
-            "memang benar rata rata rendah. Dari info info ini bisa disimpulkan bahwa masyarat di "
+            "disekitar 180 pada tahun 2016 ini cukup tinggi. Saat saya serching buruknya nilai AQI "
+            "di tahun 2014 dan baiknya AQI pada tahun 2016 di beijing ini cukup masuk akal karena info "
+            "yang saya dapat benar bahwa 2014 cukup parah nilai AQI nya dan 2016 nya juga tercatat "
+            "memang benar memang terkenal rendah. Dari info info ini bisa disimpulkan bahwa masyarat di "
             "tahun 2014 mendapatkan dampak dari AQI yang tinggi ini mulai kapok hingga pada tahun "
-            "2015 terjadi langkah langkah yang baik bagi penurunan AQI."
+            "2016 terjadi langkah langkah yang baik bagi penurunan AQI."
         )
     else:
         st.write("Tidak ada data yang sesuai dengan filter.")
@@ -150,10 +150,8 @@ with tab2:
             "dapat menyebarluaskan udara kotor yang terfokus ke satu lokasi saja menyebar ke beberapa "
             "lokasi menyebabkan nilai AQI menurun seiring naiknya nilai WSPM. Fitur dengan nilai korelasi "
             "kedua tertinggi adalah DEWP lagi lagi ini cukup masuk akal karena DEWP atau titik embun "
-            "kedua tertinggi adalah DEWP lagi lagi ini cukup masuk akal karena DEWP atau titik embun "
-            "jika nilainya naik fitur PM2.5 dan PM10 dapat menyerap uap air dan bertambah besar ukurannya. "
-            "Partikel yang lebih besar ini bisa bertahan lebih lama di atmosfer, meningkatkan konsentrasi "
-            "polutan. Untuk fitur meteorologi seperti rain menunjukan korelasi negatif, press korelasi negatif "
+            "jika nilainya naik dapat mengurangi radiasi matahari yang diperlukan untuk reaksi fotokimia pembentukan ozon"
+            "Untuk fitur meteorologi seperti rain menunjukan korelasi negatif, press korelasi negatif "
             "dan temp berkorelasi negatif, masuk akal."
         )
     else:
@@ -168,7 +166,7 @@ with tab3:
         filtered_data["hour"] = filtered_data['time'].dt.hour
 
         # Hitung rata-rata AQI berdasarkan jam
-        hour_avg = filtered_data.groupby('hour')['AQI'].mean().reset_index()
+        hour_avg = filtered_data.groupby('hour')['AQI'].median().reset_index()
 
         # Visualisasi rata-rata AQI per jam menggunakan Matplotlib
         fig, ax = plt.subplots(figsize=(10, 6))
@@ -186,10 +184,13 @@ with tab3:
         filtered_data.drop(columns='hour', inplace=True)
 
         st.subheader("Insight")
-        st.write("**Pertanyaan 3:** Apakah kualitas udara memburuk saat waktu produtif manusia (8am - 9pm (src: Sistem 896 di perusahaan China))?")
+        st.write(""
+            "**Pertanyaan 3:** - Apakah aktivitas manusia berpengaruh terhadap buruk atau baiknya kualitas "
+            "udara (8am - 9pm (src: Sistem 896 di perusahaan China))?"
+        )
         st.write(
-            "Titik terendah AQI menunjukan angka disekitar 90 pada jam 06:00 sebelum nilainya naik. "
-            "Titik tertinggi AQI menunjukan angka disekitar 120 pada jam 19:00 sebelum nilainya turun. "
+            "Titik terendah AQI menunjukan angka disekitar 70 pada jam 06:00 sebelum nilainya naik. "
+            "Titik tertinggi AQI menunjukan angka disekitar 100 pada jam 19:00 sebelum nilainya turun. "
             "Ini menunjukkan bahwa aktivitas manusia berpengaruh terhadap tinggi atau rendahnya"
             "nilai AQI. Dikarenakan aktivitas manusia diluar ruangan secara umum dimulai pada pagi hari "
             "dan pulang ke rumah pada malam hari didukung dengan metode 896 di China yang menurut sistem "
